@@ -19,14 +19,22 @@ public class AuthenticationService {
   private final PasswordEncoder passwordEncoder;
   private final AuthenticationManager authenticationManager;
 
-  public AuthenticationResponse register(RegisterRequest request) {
+  public AuthenticationResponse registerUser(RegisterRequest request) {
+    return register(request, Role.USER);
+  }
+
+  public AuthenticationResponse registerAdmin(RegisterRequest request) {
+    return register(request, Role.ADMIN);
+  }
+
+  public AuthenticationResponse register(RegisterRequest request, Role role) {
 
     User user = User.builder()
         .firstName(request.getFirstName())
         .lastName(request.getLastName())
         .email(request.getEmail())
         .password(passwordEncoder.encode(request.getPassword()))
-        .role(Role.USER)
+        .role(role)
         .build();
     userRepository.save(user);
     String token = jwtService.generateToken(user);

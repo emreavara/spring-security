@@ -11,7 +11,7 @@ spring:
     password: master
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -19,3 +19,6 @@ spring:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
+logging:
+  level:
+    org.springframework.security: TRACE
